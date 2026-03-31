@@ -1245,12 +1245,12 @@
     chatToggle.innerHTML = chatWindow.classList.contains('open')
       ? '<i class="fas fa-xmark"></i>'
       : '<i class="fas fa-comment-dots"></i>';
-    if (!chatWindow.classList.contains('open')) { speechSynthesis?.cancel(); stopVoice(); }
+    if (!chatWindow.classList.contains('open')) { stopVoice(); }
   });
   chatClose.addEventListener('click', () => {
     chatWindow.classList.remove('open');
     chatToggle.innerHTML = '<i class="fas fa-comment-dots"></i>';
-    speechSynthesis?.cancel(); stopVoice();
+    stopVoice();
   });
 
   const botReplies = {
@@ -1295,11 +1295,11 @@
     return botReplies.default;
   }
 
-  async function sendMessage(voiceText) {
-    const msg = voiceText || chatInput.value.trim();
+  async function sendMessage(text) {
+    const msg = text || chatInput.value.trim();
     if (!msg) return;
     addMsg(msg, 'user');
-    if (!voiceText) chatInput.value = '';
+    if (!text) chatInput.value = '';
 
     const typing = document.createElement('div');
     typing.className = 'cw-msg bot typing-indicator';
@@ -1317,86 +1317,145 @@
       const { reply } = await res.json();
       typing.remove();
       addMsg(reply, 'bot');
-      speakReply(reply);
     } catch {
       typing.remove();
-      const fallback = getReply(msg);
-      addMsg(fallback, 'bot');
-      speakReply(fallback);
+      addMsg(getReply(msg), 'bot');
     }
   }
 
-  function sendChip(el) {
-    sendMessage(el.textContent);
-  }
+  function sendChip(el) { sendMessage(el.textContent); }
 
-  // ── VOICE ──────────────────────────────────────────────────────
-  let recognition = null;
+  // ── GEMINI LIVE VOICE ──────────────────────────────────────────
+  const LIVE_SYSTEM_PROMPT = `You are an Orange County, Florida permit and planning assistant.
+You help residents and businesses with permit questions, zoning, inspections, fees, and development.
+You are in a live voice conversation — be warm, natural, and concise (2-3 sentences per reply).
+Greet the user when the conversation starts.
+Key contacts: Fast Track portal fasttrack.ocfl.net, Building Safety 407-836-5550,
+Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right number.`;
+
+  let wsSession = null;
+  let micCtx = null;
+  let playCtx = null;
+  let micStream = null;
+  let scriptProc = null;
+  let nextPlayTime = 0;
   let voiceActive = false;
 
-  function startRecognition() {
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = new SR();
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.continuous = false;
+  async function toggleVoice() {
+    if (voiceActive) { stopVoice(); return; }
 
-    recognition.onresult = (e) => {
-      const transcript = e.results[0][0].transcript;
-      // Keep mic active — restart after bot replies
-      recognition.abort();
-      sendMessage(transcript);
-    };
+    const btn = document.getElementById('micBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-    recognition.onerror = (e) => {
-      if (e.error === 'not-allowed') {
-        stopVoice();
-        alert('Microphone access was denied. Please allow it in your browser settings.');
-      }
-      // no-speech / aborted: onend restarts automatically
-    };
+    try {
+      const { apiKey } = await fetch('/api/config').then(r => r.json());
+      if (!apiKey) throw new Error('No API key');
 
-    recognition.onend = () => {
-      // Restart as long as voice mode is active (keeps mic open after each utterance)
-      if (voiceActive) {
-        setTimeout(() => {
-          if (voiceActive) try { recognition.start(); } catch { stopVoice(); }
-        }, 300);
-      }
-    };
+      const ws = new WebSocket(
+        `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key=${apiKey}`
+      );
+      wsSession = ws;
 
-    recognition.start();
+      ws.onopen = () => {
+        ws.send(JSON.stringify({
+          setup: {
+            model: 'models/gemini-2.0-flash-live-001',
+            generationConfig: {
+              responseModalities: ['AUDIO'],
+              speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Aoede' } } }
+            },
+            systemInstruction: { parts: [{ text: LIVE_SYSTEM_PROMPT }] }
+          }
+        }));
+      };
+
+      ws.onmessage = async (event) => {
+        const raw = event.data instanceof Blob ? await event.data.text() : event.data;
+        let msg; try { msg = JSON.parse(raw); } catch { return; }
+
+        if (msg.setupComplete) {
+          voiceActive = true;
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-microphone"></i>';
+          btn.classList.add('listening');
+          await startMic(ws);
+        }
+
+        const parts = msg.serverContent?.modelTurn?.parts || [];
+        for (const part of parts) {
+          if (part.inlineData?.mimeType?.includes('audio')) playPcm(part.inlineData.data);
+          if (part.text) addMsg(part.text, 'bot');
+        }
+        if (msg.serverContent?.interrupted) nextPlayTime = 0;
+      };
+
+      ws.onerror = () => stopVoice();
+      ws.onclose = () => { if (voiceActive) stopVoice(); };
+
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-microphone"></i>';
+      addMsg('Could not connect to voice service. Please try again or use text chat.', 'bot');
+    }
   }
 
-  function toggleVoice() {
-    if (voiceActive) { stopVoice(); return; }
-    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { alert('Voice input requires Chrome or Edge.'); return; }
-    voiceActive = true;
-    document.getElementById('micBtn').classList.add('listening');
-    // Greet the user so they know voice is active
-    speakReply('Hello! I am your Orange County permit assistant. What can I help you with today?');
-    startRecognition();
+  async function startMic(ws) {
+    micStream = await navigator.mediaDevices.getUserMedia({
+      audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true }
+    });
+    micCtx = new AudioContext({ sampleRate: 16000 });
+    playCtx = new AudioContext({ sampleRate: 24000 });
+    nextPlayTime = playCtx.currentTime;
+
+    const source = micCtx.createMediaStreamSource(micStream);
+    scriptProc = micCtx.createScriptProcessor(2048, 1, 1);
+    scriptProc.onaudioprocess = (e) => {
+      if (!voiceActive || ws.readyState !== WebSocket.OPEN) return;
+      const floats = e.inputBuffer.getChannelData(0);
+      const pcm = new Int16Array(floats.length);
+      for (let i = 0; i < floats.length; i++) pcm[i] = Math.max(-32768, Math.min(32767, floats[i] * 32768));
+      ws.send(JSON.stringify({
+        realtimeInput: { mediaChunks: [{ mimeType: 'audio/pcm;rate=16000', data: bufToBase64(pcm.buffer) }] }
+      }));
+    };
+    source.connect(scriptProc);
+    scriptProc.connect(micCtx.destination);
+  }
+
+  function playPcm(base64) {
+    if (!playCtx) return;
+    const bytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+    const pcm = new Int16Array(bytes.buffer);
+    const floats = new Float32Array(pcm.length);
+    for (let i = 0; i < pcm.length; i++) floats[i] = pcm[i] / 32768;
+    const buf = playCtx.createBuffer(1, floats.length, 24000);
+    buf.copyToChannel(floats, 0);
+    const src = playCtx.createBufferSource();
+    src.buffer = buf;
+    src.connect(playCtx.destination);
+    const startAt = Math.max(playCtx.currentTime + 0.02, nextPlayTime);
+    src.start(startAt);
+    nextPlayTime = startAt + buf.duration;
+  }
+
+  function bufToBase64(buffer) {
+    const bytes = new Uint8Array(buffer);
+    let str = '';
+    for (let i = 0; i < bytes.length; i++) str += String.fromCharCode(bytes[i]);
+    return btoa(str);
   }
 
   function stopVoice() {
     voiceActive = false;
     const btn = document.getElementById('micBtn');
-    if (btn) btn.classList.remove('listening');
-    speechSynthesis?.cancel();
-    try { recognition?.abort(); } catch {}
-  }
-
-  function speakReply(text) {
-    if (!window.speechSynthesis) return;
-    const plain = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-    const utt = new SpeechSynthesisUtterance(plain);
-    utt.lang = 'en-US'; utt.rate = 1.0;
-    const voices = speechSynthesis.getVoices();
-    const v = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English'));
-    if (v) utt.voice = v;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utt);
+    if (btn) { btn.classList.remove('listening'); btn.disabled = false; btn.innerHTML = '<i class="fas fa-microphone"></i>'; }
+    scriptProc?.disconnect();
+    micStream?.getTracks().forEach(t => t.stop());
+    try { wsSession?.close(); } catch {}
+    micCtx?.close(); playCtx?.close();
+    scriptProc = null; micStream = null; wsSession = null; micCtx = null; playCtx = null;
+    nextPlayTime = 0;
   }
 </script>
 
