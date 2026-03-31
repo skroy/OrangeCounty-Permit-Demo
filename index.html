@@ -1333,37 +1333,38 @@
   // ── VOICE ──────────────────────────────────────────────────────
   let recognition = null;
   let voiceActive = false;
-  let gotResult = false;
 
   function startRecognition() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SR();
     recognition.lang = 'en-US';
     recognition.interimResults = false;
+    recognition.continuous = false;
 
     recognition.onresult = (e) => {
-      gotResult = true;
       const transcript = e.results[0][0].transcript;
-      stopVoice();
+      // Keep mic active — restart after bot replies
+      recognition.abort();
       sendMessage(transcript);
     };
 
     recognition.onerror = (e) => {
-      if (e.error === 'not-allowed') { stopVoice(); alert('Microphone access was denied.'); }
-      // other errors (no-speech, aborted): onend will handle restart
+      if (e.error === 'not-allowed') {
+        stopVoice();
+        alert('Microphone access was denied. Please allow it in your browser settings.');
+      }
+      // no-speech / aborted: onend restarts automatically
     };
 
-    // If recognition ends without a result (e.g. permission dialog timing),
-    // restart automatically so the user can speak after granting access.
     recognition.onend = () => {
-      if (voiceActive && !gotResult) {
-        try { recognition.start(); } catch { stopVoice(); }
-      } else if (!voiceActive) {
-        // intentional stop — nothing to do
+      // Restart as long as voice mode is active (keeps mic open after each utterance)
+      if (voiceActive) {
+        setTimeout(() => {
+          if (voiceActive) try { recognition.start(); } catch { stopVoice(); }
+        }, 300);
       }
     };
 
-    gotResult = false;
     recognition.start();
   }
 
@@ -1373,6 +1374,8 @@
     if (!SR) { alert('Voice input requires Chrome or Edge.'); return; }
     voiceActive = true;
     document.getElementById('micBtn').classList.add('listening');
+    // Greet the user so they know voice is active
+    speakReply('Hello! I am your Orange County permit assistant. What can I help you with today?');
     startRecognition();
   }
 
@@ -1380,6 +1383,7 @@
     voiceActive = false;
     const btn = document.getElementById('micBtn');
     if (btn) btn.classList.remove('listening');
+    speechSynthesis?.cancel();
     try { recognition?.abort(); } catch {}
   }
 
