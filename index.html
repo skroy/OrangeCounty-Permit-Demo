@@ -1361,7 +1361,7 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
       ws.onopen = () => {
         ws.send(JSON.stringify({
           setup: {
-            model: 'models/gemini-2.0-flash-live-001',
+            model: 'models/gemini-2.5-flash-native-audio-latest',
             generationConfig: {
               responseModalities: ['AUDIO'],
               speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Aoede' } } }
