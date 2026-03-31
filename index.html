@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Permits &amp; Planning — Orange County Government, Florida</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0e3252;
+      --navy-light: #1a4a72;
+      --orange: #d75d05;
+      --orange-light: #e87020;
+      --gray-bg: #f4f6f8;
+      --gray-border: #dde2e8;
+      --text: #333;
+      --text-light: #666;
+    }
+
+    body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: #fff; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOP UTILITY BAR ── */
+    .utility-bar {
+      background: var(--navy);
+      color: #fff;
+      font-size: 12.5px;
+      padding: 5px 0;
+    }
+    .utility-bar .inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; justify-content: flex-end; align-items: center; gap: 18px;
+    }
+    .utility-bar a { color: #cdd8e8; transition: color .2s; }
+    .utility-bar a:hover { color: #fff; }
+    .utility-bar .sep { color: #4a6680; }
+    .utility-bar .social-icons { display: flex; gap: 10px; }
+    .utility-bar .social-icons a { font-size: 13px; }
+    .lang-btn {
+      background: var(--orange); color: #fff !important; padding: 2px 10px;
+      border-radius: 3px; font-size: 12px;
+    }
+    .lang-btn:hover { background: var(--orange-light); }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: #fff;
+      border-bottom: 3px solid var(--orange);
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    }
+    .header-inner {
+      max-width: 1200px; margin: 0 auto; padding: 12px 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+    .logo-seal {
+      width: 68px; height: 68px; border-radius: 50%;
+      background: var(--navy); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; overflow: hidden;
+    }
+    .logo-seal svg { width: 54px; height: 54px; }
+    .logo-text { line-height: 1.2; }
+    .logo-text .county { font-size: 22px; font-weight: 700; color: var(--navy); }
+    .logo-text .state  { font-size: 13px; color: var(--text-light); letter-spacing: .5px; }
+    .header-search {
+      flex: 1; max-width: 440px;
+      display: flex; border: 2px solid var(--gray-border); border-radius: 4px; overflow: hidden;
+    }
+    .header-search input {
+      flex: 1; border: none; outline: none; padding: 9px 14px; font-size: 14px; color: var(--text);
+    }
+    .header-search button {
+      background: var(--navy); color: #fff; border: none; padding: 9px 16px;
+      cursor: pointer; font-size: 15px; transition: background .2s;
+    }
+    .header-search button:hover { background: var(--navy-light); }
+
+    /* ── MAIN NAV ── */
+    .main-nav {
+      background: var(--navy);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: stretch;
+    }
+    .nav-item { position: relative; }
+    .nav-item > a {
+      display: block; color: #fff; padding: 14px 20px;
+      font-size: 14.5px; font-weight: 600; letter-spacing: .3px;
+      transition: background .2s; white-space: nowrap;
+    }
+    .nav-item > a:hover, .nav-item.active > a { background: var(--orange); }
+    .nav-item > a .arrow { font-size: 10px; margin-left: 5px; opacity: .75; }
+
+    /* dropdown */
+    .dropdown {
+      display: none; position: absolute; top: 100%; left: 0; z-index: 999;
+      background: #fff; min-width: 240px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.18);
+      border-top: 3px solid var(--orange);
+    }
+    .nav-item:hover .dropdown { display: block; }
+    .dropdown a {
+      display: block; padding: 9px 18px; font-size: 13.5px; color: var(--navy);
+      border-bottom: 1px solid #f0f2f4; transition: background .15s, color .15s;
+    }
+    .dropdown a:hover { background: var(--gray-bg); color: var(--orange); }
+
+    /* ── ALERT BANNERS ── */
+    .alert-health {
+      background: #cc4400; color: #fff; padding: 10px 0; font-size: 13.5px;
+    }
+    .alert-health .inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    }
+    .alert-health .icon { font-size: 16px; }
+    .alert-health strong { font-weight: 700; }
+    .alert-health a { color: #ffe0c0; text-decoration: underline; margin: 0 6px; }
+    .alert-health a:hover { color: #fff; }
+
+    .alert-jobs {
+      background: #f5a623; color: #1a1a1a; padding: 8px 0; font-size: 13.5px;
+    }
+    .alert-jobs .inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .alert-jobs a { color: var(--navy); font-weight: 700; text-decoration: underline; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a4a72 40%, #0e5e8a 100%);
+      color: #fff; padding: 60px 20px; text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='30' fill='none' stroke='rgba(255,255,255,.04)' stroke-width='2'/%3E%3C/svg%3E") repeat;
+    }
+    .hero-content { position: relative; max-width: 750px; margin: 0 auto; }
+    .hero h1 { font-size: 38px; font-weight: 800; letter-spacing: -.5px; line-height: 1.15; }
+    .hero h1 span { color: #f5a623; }
+    .hero p { font-size: 17px; margin-top: 14px; opacity: .88; line-height: 1.6; }
+    .hero-btns { margin-top: 28px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: #fff; padding: 13px 30px;
+      border-radius: 4px; font-size: 15px; font-weight: 600; transition: background .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { background: var(--orange-light); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.6); color: #fff; padding: 11px 28px;
+      border-radius: 4px; font-size: 15px; font-weight: 600; transition: all .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    /* ── QUICK SERVICES ── */
+    .services-section { background: var(--gray-bg); padding: 50px 20px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-title {
+      text-align: center; font-size: 26px; font-weight: 700; color: var(--navy);
+      margin-bottom: 32px; position: relative;
+    }
+    .section-title::after {
+      content: ''; display: block; width: 60px; height: 3px;
+      background: var(--orange); margin: 10px auto 0;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px;
+    }
+    .service-card {
+      background: #fff; border-radius: 8px; padding: 26px 12px 20px;
+      text-align: center; border: 1px solid var(--gray-border);
+      box-shadow: 0 2px 6px rgba(0,0,0,.06); transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+    }
+    .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+    .service-card .icon {
+      width: 56px; height: 56px; border-radius: 50%; background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 14px; color: #fff; font-size: 22px;
+      transition: background .2s;
+    }
+    .service-card:hover .icon { background: var(--orange); }
+    .service-card span { font-size: 13.5px; font-weight: 600; color: var(--navy); line-height: 1.3; display: block; }
+
+    /* ── FEATURED CAROUSEL ── */
+    .featured-section { padding: 50px 20px; background: #fff; }
+    .carousel-wrap { position: relative; overflow: hidden; }
+    .carousel-track { display: flex; gap: 24px; transition: transform .4s ease; }
+    .carousel-slide {
+      flex: 0 0 calc(33.333% - 16px); min-width: 0;
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--gray-border);
+      box-shadow: 0 3px 10px rgba(0,0,0,.07);
+      transition: box-shadow .2s;
+    }
+    .carousel-slide:hover { box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+    .slide-img {
+      height: 180px; background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px; color: rgba(255,255,255,.3);
+      position: relative; overflow: hidden;
+    }
+    .slide-img.biz   { background: linear-gradient(135deg,#1a4a72,#2c6ea0); }
+    .slide-img.road  { background: linear-gradient(135deg,#2d5016,#4a7a20); }
+    .slide-img.house { background: linear-gradient(135deg,#5a1a0e,#8b2a14); }
+    .slide-img.news  { background: linear-gradient(135deg,#0e3252,#1a5080); }
+    .slide-img .badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--orange); color: #fff; font-size: 11px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; letter-spacing: .5px;
+    }
+    .slide-body { padding: 18px 20px 20px; }
+    .slide-body h3 { font-size: 16px; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 8px; }
+    .slide-body p  { font-size: 13.5px; color: var(--text-light); line-height: 1.55; margin-bottom: 14px; }
+    .slide-body a  { font-size: 13px; color: var(--orange); font-weight: 600; }
+    .slide-body a:hover { text-decoration: underline; }
+    .carousel-btns { display: flex; justify-content: center; gap: 10px; margin-top: 24px; }
+    .c-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--navy);
+      background: #fff; color: var(--navy); cursor: pointer; font-size: 15px;
+      display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .c-btn:hover { background: var(--navy); color: #fff; }
+
+    /* ── COMMISSIONERS ── */
+    .commissioners-section { background: var(--gray-bg); padding: 50px 20px; }
+    .comm-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(148px, 1fr)); gap: 18px;
+      margin-top: 8px;
+    }
+    .comm-card {
+      background: #fff; border-radius: 10px; padding: 22px 14px 18px; text-align: center;
+      border: 1px solid var(--gray-border); box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s; cursor: pointer;
+    }
+    .comm-card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.1); }
+    .comm-avatar {
+      width: 72px; height: 72px; border-radius: 50%; background: var(--navy);
+      margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 26px; font-weight: 700; border: 3px solid var(--orange);
+    }
+    .comm-card .title { font-size: 11px; color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 4px; }
+    .comm-card .name  { font-size: 13.5px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .comm-card .dist  { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+    /* ── NEWS & UPDATES ── */
+    .news-section { padding: 50px 20px; background: #fff; }
+    .news-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+    .news-main {}
+    .news-item {
+      display: flex; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--gray-border);
+    }
+    .news-item:last-child { border-bottom: none; }
+    .news-item-icon {
+      flex-shrink: 0; width: 50px; height: 50px; border-radius: 8px;
+      background: var(--navy); display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 20px;
+    }
+    .news-item-body {}
+    .news-item-body .cat { font-size: 11px; color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+    .news-item-body h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 4px 0 6px; line-height: 1.35; }
+    .news-item-body p  { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+    .news-item-body .date { font-size: 12px; color: #999; margin-top: 5px; }
+    .news-sidebar {}
+    .sidebar-widget {
+      background: var(--gray-bg); border-radius: 10px; padding: 20px;
+      margin-bottom: 22px; border: 1px solid var(--gray-border);
+    }
+    .sidebar-widget h4 {
+      font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 14px;
+      border-bottom: 2px solid var(--orange); padding-bottom: 8px;
+    }
+    .event-item { padding: 8px 0; border-bottom: 1px solid var(--gray-border); }
+    .event-item:last-child { border-bottom: none; }
+    .event-item .ev-date { font-size: 11px; color: var(--orange); font-weight: 700; }
+    .event-item .ev-name { font-size: 13px; color: var(--navy); font-weight: 600; margin-top: 2px; }
+    .sidebar-links a {
+      display: flex; align-items: center; gap: 8px; padding: 8px 0;
+      border-bottom: 1px solid var(--gray-border); font-size: 13.5px; color: var(--navy);
+      transition: color .15s;
+    }
+    .sidebar-links a:last-child { border-bottom: none; }
+    .sidebar-links a:hover { color: var(--orange); }
+    .sidebar-links a i { width: 18px; color: var(--orange); }
+
+    /* ── CALLOUT BAND ── */
+    .callout-band {
+      background: var(--navy); color: #fff; padding: 42px 20px;
+    }
+    .callout-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 30px;
+    }
+    .callout-item { text-align: center; }
+    .callout-item .ci-icon {
+      font-size: 36px; color: #f5a623; margin-bottom: 12px;
+    }
+    .callout-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .callout-item p  { font-size: 13.5px; opacity: .78; line-height: 1.55; }
+    .callout-item a.ci-link {
+      display: inline-block; margin-top: 12px; font-size: 13px; color: #f5a623;
+      font-weight: 600; text-decoration: underline;
+    }
+
+    /* ── CHATBOT SECTION ── */
+    .chatbot-band {
+      background: linear-gradient(135deg, var(--orange) 0%, #b84800 100%);
+      color: #fff; padding: 48px 20px;
+    }
+    .chatbot-inner {
+      max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .chatbot-text { flex: 1; min-width: 280px; }
+    .chatbot-text h2 { font-size: 28px; font-weight: 800; margin-bottom: 10px; }
+    .chatbot-text p  { font-size: 15px; opacity: .9; line-height: 1.6; }
+    .chatbot-demo {
+      flex-shrink: 0; background: rgba(0,0,0,.25); border-radius: 14px; padding: 20px;
+      width: 300px;
+    }
+    .chat-header {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .chat-header .bot-icon {
+      width: 36px; height: 36px; border-radius: 50%; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 18px;
+    }
+    .chat-header span { font-weight: 700; font-size: 14px; }
+    .chat-msg {
+      background: rgba(255,255,255,.15); border-radius: 10px; padding: 10px 14px;
+      font-size: 13px; margin-bottom: 10px; line-height: 1.5;
+    }
+    .chat-msg.user { background: rgba(255,255,255,.25); text-align: right; }
+    .chat-input {
+      display: flex; gap: 8px; margin-top: 14px;
+    }
+    .chat-input input {
+      flex: 1; border: none; border-radius: 20px; padding: 9px 14px; font-size: 13px;
+      outline: none; background: rgba(255,255,255,.9); color: #333;
+    }
+    .chat-input button {
+      background: var(--navy); color: #fff; border: none; border-radius: 50%;
+      width: 36px; height: 36px; cursor: pointer; font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    .site-footer { background: var(--navy); color: #cdd8e8; padding: 50px 20px 30px; }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 30px;
+      padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.12);
+    }
+    .footer-brand .brand-logo {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+    }
+    .footer-seal {
+      width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .footer-brand h3 { font-size: 16px; font-weight: 700; color: #fff; }
+    .footer-brand p  { font-size: 12.5px; opacity: .65; line-height: 1.5; margin-top: 4px; }
+    .footer-brand .social-row { display: flex; gap: 10px; margin-top: 18px; }
+    .footer-brand .social-row a {
+      width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center; color: #cdd8e8;
+      font-size: 15px; transition: background .2s, color .2s;
+    }
+    .footer-brand .social-row a:hover { background: var(--orange); color: #fff; }
+    .footer-col h4 {
+      font-size: 13px; font-weight: 700; color: #fff; text-transform: uppercase;
+      letter-spacing: .7px; margin-bottom: 14px; padding-bottom: 8px;
+      border-bottom: 2px solid var(--orange);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 7px; }
+    .footer-col ul li a { font-size: 13px; color: #aabccc; transition: color .2s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1200px; margin: 24px auto 0;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; font-size: 12.5px; opacity: .65;
+    }
+    .footer-bottom a { color: #aabccc; }
+    .footer-bottom a:hover { color: #fff; }
+
+    /* ── CHATBOT WIDGET ── */
+    .chat-widget {
+      position: fixed; bottom: 28px; right: 28px; z-index: 10000;
+    }
+    .chat-widget-btn {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--orange); color: #fff; border: none; cursor: pointer;
+      font-size: 26px; box-shadow: 0 4px 16px rgba(215,93,5,.5);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s, background .2s;
+    }
+    .chat-widget-btn:hover { transform: scale(1.08); background: var(--orange-light); }
+    .chat-window {
+      position: absolute; bottom: 72px; right: 0; width: 340px;
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.2); display: none;
+      flex-direction: column; max-height: 480px;
+    }
+    .chat-window.open { display: flex; }
+    .cw-header {
+      background: var(--navy); color: #fff; padding: 16px 18px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cw-header .cw-info { display: flex; align-items: center; gap: 10px; }
+    .cw-header .cw-avatar {
+      width: 38px; height: 38px; border-radius: 50%; background: var(--orange);
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+    .cw-header h4 { font-size: 14px; font-weight: 700; }
+    .cw-header p  { font-size: 11px; opacity: .75; margin-top: 2px; }
+    .cw-header .cw-close { background: none; border: none; color: #fff; font-size: 18px; cursor: pointer; opacity: .75; }
+    .cw-header .cw-close:hover { opacity: 1; }
+    .cw-messages {
+      flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+    }
+    .cw-msg {
+      max-width: 85%; font-size: 13.5px; line-height: 1.5; border-radius: 12px; padding: 10px 14px;
+    }
+    .cw-msg.bot { background: var(--gray-bg); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .cw-msg.user { background: var(--navy); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+    .cw-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
+    .cw-chip {
+      background: #fff; border: 1.5px solid var(--navy); color: var(--navy);
+      border-radius: 20px; padding: 5px 12px; font-size: 12px; cursor: pointer;
+      transition: all .15s;
+    }
+    .cw-chip:hover { background: var(--navy); color: #fff; }
+    .cw-input-row {
+      padding: 12px 14px; border-top: 1px solid var(--gray-border);
+      display: flex; gap: 8px; align-items: center;
+    }
+    .cw-input-row input {
+      flex: 1; border: 1.5px solid var(--gray-border); border-radius: 20px;
+      padding: 9px 14px; font-size: 13.5px; outline: none; transition: border .2s;
+    }
+    .cw-input-row input:focus { border-color: var(--navy); }
+    .cw-input-row button {
+      background: var(--orange); color: #fff; border: none; border-radius: 50%;
+      width: 38px; height: 38px; cursor: pointer; font-size: 15px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: background .2s;
+    }
+    .cw-input-row button:hover { background: var(--orange-light); }
+    .cw-mic-btn {
+      background: none; border: none; color: var(--navy);
+      font-size: 1.1rem; cursor: pointer; padding: 0 6px; flex-shrink: 0;
+      transition: color .2s;
+    }
+    .cw-mic-btn.listening { color: var(--orange); animation: micpulse 1s infinite; }
+    @keyframes micpulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .cw-msg.typing-indicator { display: flex; align-items: center; gap: 3px; padding: 8px 12px; }
+    .cw-msg.typing-indicator span {
+      display: inline-block; width: 7px; height: 7px;
+      background: #aaa; border-radius: 50%; animation: tybounce 1s infinite;
+    }
+    .cw-msg.typing-indicator span:nth-child(2) { animation-delay: .2s; }
+    .cw-msg.typing-indicator span:nth-child(3) { animation-delay: .4s; }
+    @keyframes tybounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .news-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .callout-grid { grid-template-columns: 1fr; gap: 24px; }
+      .chatbot-inner { flex-direction: column; }
+      .chatbot-demo { width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .carousel-slide { flex: 0 0 calc(100% - 0px); }
+      .comm-grid { grid-template-columns: repeat(2,1fr); }
+      .services-grid { grid-template-columns: repeat(2,1fr); }
+      .logo-text .county { font-size: 17px; }
+      .hero h1 { font-size: 26px; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ TOP UTILITY BAR ═══════════════════════════════ -->
+<div class="utility-bar">
+  <div class="inner">
+    <a href="#">Site Map</a>
+    <span class="sep">|</span>
+    <a href="#">A-Z Index</a>
+    <span class="sep">|</span>
+    <a href="#">Payment Center</a>
+    <span class="sep">|</span>
+    <a href="#">311 Help &amp; Info</a>
+    <span class="sep">|</span>
+    <div class="social-icons">
+      <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    <span class="sep">|</span>
+    <a class="lang-btn" href="#">Español</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <div class="logo-seal">
+        <!-- SVG County Seal (simplified) -->
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="46" fill="#0e3252" stroke="#f5a623" stroke-width="4"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="#f5a623" stroke-width="1.5"/>
+          <text x="50" y="38" font-family="Arial" font-weight="800" font-size="9" fill="#fff" text-anchor="middle">ORANGE</text>
+          <text x="50" y="49" font-family="Arial" font-weight="800" font-size="9" fill="#fff" text-anchor="middle">COUNTY</text>
+          <path d="M26 56 Q30 48 50 44 Q70 48 74 56" stroke="#f5a623" stroke-width="1.5" fill="none"/>
+          <path d="M32 62 Q40 55 50 53 Q60 55 68 62" stroke="#f5a623" stroke-width="1.5" fill="none"/>
+          <text x="50" y="72" font-family="Arial" font-size="7" fill="#cdd8e8" text-anchor="middle">FLORIDA</text>
+          <text x="50" y="82" font-family="Arial" font-size="6" fill="#aabccc" text-anchor="middle">EST. 1824</text>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <div class="county">Orange County Government</div>
+        <div class="state">Florida &nbsp;·&nbsp; Est. 1824</div>
+      </div>
+    </div>
+    <div class="header-search">
+      <input type="text" placeholder="Search orangecountyfl.net…" />
+      <button><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════ MAIN NAV ═══════════════════════════════ -->
+<nav class="main-nav">
+  <div class="nav-inner">
+
+    <div class="nav-item">
+      <a href="#">Residents <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Animals &amp; Pets</a>
+        <a href="#">Area Agencies</a>
+        <a href="#">Arts &amp; Culture</a>
+        <a href="#">Community &amp; Family Services</a>
+        <a href="#">Consumer Protection</a>
+        <a href="#">County Commission</a>
+        <a href="#">Emergency &amp; Safety</a>
+        <a href="#">Employment &amp; Volunteerism</a>
+        <a href="#">Environment</a>
+        <a href="#">Health Services</a>
+        <a href="#">Get Involved</a>
+        <a href="#">Neighborhoods &amp; Housing</a>
+        <a href="#">Open Government</a>
+        <a href="#">Orange County Library System</a>
+        <a href="#">Orange TV</a>
+        <a href="#">Parks</a>
+        <a href="#">Payment Center</a>
+        <a href="#">Permits &amp; Licenses</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Traffic &amp; Transportation</a>
+        <a href="#">Water / Garbage / Recycling</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="#">Visitors <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Arts and Culture</a>
+        <a href="#">Consumer Protection</a>
+        <a href="#">Convention Center</a>
+        <a href="#">County Commission</a>
+        <a href="#">Emergency &amp; Safety</a>
+        <a href="#">Environment</a>
+        <a href="#">Orange County Library System</a>
+        <a href="#">Orange County Regional History Center</a>
+        <a href="#">Parks</a>
+        <a href="#">Visit Orlando</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="#">Businesses <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Business Resources</a>
+        <a href="#">Area Agencies</a>
+        <a href="#">Central Florida Research Park</a>
+        <a href="#">Convention Center</a>
+        <a href="#">County Commission</a>
+        <a href="#">Economic Development</a>
+        <a href="#">Employment &amp; Volunteerism</a>
+        <a href="#">Environment</a>
+        <a href="#">Health Services</a>
+        <a href="#">National Entrepreneur Center</a>
+        <a href="#">Open Government</a>
+        <a href="#">Payment Center</a>
+        <a href="#">Permits &amp; Licenses</a>
+        <a href="#">Planning &amp; Development</a>
+        <a href="#">Sustainability</a>
+        <a href="#">Team Orlando</a>
+        <a href="#">Traffic &amp; Transportation</a>
+        <a href="#">UCF Business Incubation Program</a>
+        <a href="#">Vendor Services</a>
+        <a href="#">Water / Garbage / Recycling</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="#">Employees <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">myOCHR Portal</a>
+        <a href="#">Benefits Documents Upload</a>
+        <a href="#">Employment Verification</a>
+        <a href="#">Career Opportunities</a>
+        <a href="#">Fire Rescue Careers</a>
+        <a href="#">Corrections Careers</a>
+        <a href="#">Job Descriptions</a>
+        <a href="#">New Hire Hub</a>
+        <a href="#">Open Enrollment</a>
+        <a href="#">Employee Benefits</a>
+        <a href="#">Retirement Benefits</a>
+        <a href="#">myOCWellness</a>
+        <a href="#">OC MINDMATTERS</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="#">About Us <span class="arrow">▾</span></a>
+      <div class="dropdown">
+        <a href="#">Board of County Commissioners</a>
+        <a href="#">County Mayor</a>
+        <a href="#">County Administration</a>
+        <a href="#">County Departments</a>
+        <a href="#">Strategic Plan</a>
+        <a href="#">Budget &amp; Finance</a>
+        <a href="#">County History</a>
+        <a href="#">Awards &amp; Recognition</a>
+        <a href="#">Media Center</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════ ALERT BANNERS ═══════════════════════════════ -->
+<div class="alert-health">
+  <div class="inner">
+    <span class="icon"><i class="fas fa-triangle-exclamation"></i></span>
+    <strong>Health and Public Safety Information:</strong>
+    <a href="#">Storm Information &amp; Long-Term Recovery</a>
+    <span>|</span>
+    <a href="#">Reentry Map</a>
+    <span>|</span>
+    <a href="#">Medical Clinic</a>
+    <span>|</span>
+    <a href="#">Executive Orders</a>
+  </div>
+</div>
+<div class="alert-jobs">
+  <div class="inner">
+    <i class="fas fa-briefcase" style="margin-right:6px"></i>
+    <strong>Orange County is hiring!</strong> &nbsp;—&nbsp;
+    <a href="#">View open positions and APPLY NOW <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.18);border:1px solid rgba(245,166,35,.4);border-radius:20px;padding:5px 16px;font-size:13px;margin-bottom:18px;letter-spacing:.3px">
+      <i class="fas fa-robot" style="color:#f5a623"></i> Powered by Woicely AI &nbsp;·&nbsp; RFI #Y26-05
+    </div>
+    <h1><span>Permit &amp; Planning</span><br/>Copilot for Orange County</h1>
+    <p>Skip the confusion. Our AI-powered assistant guides residents and businesses through every step — from "Do I need a permit?" to a completed, application-ready submission.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary"><i class="fas fa-robot"></i> Start Permit Guidance</a>
+      <a href="#" class="btn-outline"><i class="fas fa-map-location-dot"></i> Zoning &amp; Land Use</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ QUICK SERVICES ═══════════════════════════════ -->
+<section class="services-section">
+  <div class="section-inner">
+    <h2 class="section-title">Permit &amp; Planning Services</h2>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-hammer"></i></div>
+        <span>Building Permits</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-bolt"></i></div>
+        <span>Electrical Permits</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-faucet-drip"></i></div>
+        <span>Plumbing Permits</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-wind"></i></div>
+        <span>Mechanical / HVAC</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-store"></i></div>
+        <span>Business Licenses</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-map"></i></div>
+        <span>Zoning &amp; Land Use</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+        <span>Site Plan Review</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-house-chimney"></i></div>
+        <span>Residential Construction</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-building"></i></div>
+        <span>Commercial Development</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-magnifying-glass-location"></i></div>
+        <span>Permit Status Check</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-clipboard-check"></i></div>
+        <span>Inspections</span>
+      </div>
+      <div class="service-card">
+        <div class="icon"><i class="fas fa-credit-card"></i></div>
+        <span>Fee &amp; Payment Center</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FEATURED CAROUSEL ═══════════════════════════════ -->
+<section class="featured-section">
+  <div class="section-inner">
+    <h2 class="section-title">Common Permit Workflows</h2>
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+          <div class="slide-img biz">
+            <i class="fas fa-hammer"></i>
+            <span class="badge">Building</span>
+          </div>
+          <div class="slide-body">
+            <h3>Home Addition or Alteration</h3>
+            <p>All additions and alterations require a building permit. Depending on scope, sub-permits for electrical, roofing, mechanical, or plumbing may also be required.</p>
+            <a href="#">Start Permit Guidance <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img road">
+            <i class="fas fa-wind"></i>
+            <span class="badge">Mechanical</span>
+          </div>
+          <div class="slide-body">
+            <h3>HVAC / Air Conditioning</h3>
+            <p>A mechanical permit is required for all permanently installed AC or heating equipment. Plug-in or portable units do <strong>not</strong> require a permit.</p>
+            <a href="#">Get Checklist <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img house">
+            <i class="fas fa-water"></i>
+            <span class="badge">Plumbing</span>
+          </div>
+          <div class="slide-body">
+            <h3>Water Heater Replacement</h3>
+            <p>A plumbing permit is required for water heater replacement. An electrical permit may also be needed. Remote final inspection available via Fast Track.</p>
+            <a href="#">Apply on Fast Track <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img news">
+            <i class="fas fa-border-all"></i>
+            <span class="badge">Zoning</span>
+          </div>
+          <div class="slide-body">
+            <h3>Residential Fence Permit</h3>
+            <p>Fences 6 ft or under require a Zoning permit. Fences over 6 ft or masonry construction require a Building permit. Max 8 ft (side/rear), 4 ft (front yard).</p>
+            <a href="#">View Requirements <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img biz" style="background:linear-gradient(135deg,#4a1a6e,#7b2fa0)">
+            <i class="fas fa-store"></i>
+            <span class="badge">Business</span>
+          </div>
+          <div class="slide-body">
+            <h3>Business Tax Receipt (BTR)</h3>
+            <p>Zoning approval is required before the Tax Collector can issue a BTR. Submit via Fast Track using the Zoning/BZA account category. Contact: (407) 836-5650.</p>
+            <a href="#">Start BTR Process <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-img road" style="background:linear-gradient(135deg,#0e5e5e,#0e8a6a)">
+            <i class="fas fa-swimming-pool"></i>
+            <span class="badge">Pool</span>
+          </div>
+          <div class="slide-body">
+            <h3>Swimming Pool Installation</h3>
+            <p>A building permit is required for all pools, plus applicable sub-permits for electrical, plumbing, and gas. All applications through Fast Track portal.</p>
+            <a href="#">Permit Checklist <i class="fas fa-arrow-right" style="font-size:11px"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-btns">
+      <button class="c-btn" id="cPrev"><i class="fas fa-chevron-left"></i></button>
+      <button class="c-btn" id="cNext"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ BOARD OF COUNTY COMMISSIONERS ═══════════════════════════════ -->
+<section class="commissioners-section">
+  <div class="section-inner">
+    <h2 class="section-title">Board of County Commissioners</h2>
+    <div class="comm-grid">
+
+      <div class="comm-card">
+        <div class="comm-avatar">JD</div>
+        <div class="title">Mayor</div>
+        <div class="name">Jerry L. Demings</div>
+        <div class="dist">Orange County Mayor</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">NW</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Nicole H. Wilson</div>
+        <div class="dist">District 1</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">CM</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Christine Moore</div>
+        <div class="dist">District 2</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">MU</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Mayra Uribe</div>
+        <div class="dist">District 3</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">MG</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Maribel Gomez Cordero</div>
+        <div class="dist">District 4</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">KS</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Kelly Martinez Semrad</div>
+        <div class="dist">District 5</div>
+      </div>
+
+      <div class="comm-card">
+        <div class="comm-avatar">MS</div>
+        <div class="title">Commissioner</div>
+        <div class="name">Michael "Mike" Scott</div>
+        <div class="dist">District 6</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ DO I NEED A PERMIT ═══════════════════════════════ -->
+<section class="news-section">
+  <div class="section-inner">
+    <h2 class="section-title">Do I Need a Permit?</h2>
+    <div class="news-grid">
+
+      <div class="news-main">
+        <div class="news-item">
+          <div class="news-item-icon" style="background:#1a7a1a"><i class="fas fa-check"></i></div>
+          <div class="news-item-body">
+            <div class="cat">Requires Building Permit</div>
+            <h4>Structures, Additions &amp; Major Work</h4>
+            <p>New structures (all sizes — even sheds under 120 sq ft still need a permit), additions, alterations, roofing, pools, windows/doors/garage doors, demolition, and any work affecting structural stability.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-item-icon" style="background:#d75d05"><i class="fas fa-bolt"></i></div>
+          <div class="news-item-body">
+            <div class="cat">Sub-Permits Required</div>
+            <h4>Electrical, Mechanical, Plumbing &amp; Gas</h4>
+            <p>Electrical panel upgrades, solar installations, low-voltage work · All permanently installed HVAC/heating (portable units exempt) · Water heaters, plumbing modifications, irrigation systems (underground) · Gas work.</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-item-icon" style="background:#1a5080"><i class="fas fa-map"></i></div>
+          <div class="news-item-body">
+            <div class="cat">Requires Zoning Permit</div>
+            <h4>Fences, Pavers, Signs &amp; Storage</h4>
+            <p>Fences ≤6 ft · Pavers and concrete work · RV or boat storage · Garage sales (limited to 1 per 6-month period) · Temporary &amp; painted signs · Tree removal on 2+ acre residential lots · Business Tax Receipts (zoning approval first).</p>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-item-icon" style="background:#555"><i class="fas fa-ban"></i></div>
+          <div class="news-item-body">
+            <div class="cat">No Permit Required</div>
+            <h4>Exempt Work</h4>
+            <p>Residential painting · Plug-in portable appliances/HVAC · Floor covering replacement · Cabinet or countertop replacement (no reconfiguration) · Residential landscaping (excluding irrigation) · Satellite dishes · Flagpoles ≤15 ft.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="news-sidebar">
+        <div class="sidebar-widget">
+          <h4><i class="fas fa-phone" style="margin-right:6px"></i>Key Contacts</h4>
+          <div class="event-item">
+            <div class="ev-date">Building Safety</div>
+            <div class="ev-name">(407) 836-5550 · PermittingServices@ocfl.net</div>
+          </div>
+          <div class="event-item">
+            <div class="ev-date">Zoning Division</div>
+            <div class="ev-name">(407) 836-3111 · zoning@ocfl.net</div>
+          </div>
+          <div class="event-item">
+            <div class="ev-date">Planning Division</div>
+            <div class="ev-name">(407) 836-5321 · planning@ocfl.net</div>
+          </div>
+          <div class="event-item">
+            <div class="ev-date">Environmental (EPD)</div>
+            <div class="ev-name">(407) 836-1489 · EPD@ocfl.net</div>
+          </div>
+          <div class="event-item">
+            <div class="ev-date">Impact Fees</div>
+            <div class="ev-name">(407) 836-8181 · ImpactFees@ocfl.net</div>
+          </div>
+          <div class="event-item">
+            <div class="ev-date">Fast Track Help</div>
+            <div class="ev-name">(407) 836-8160 · fasttrack.ocfl.net</div>
+          </div>
+        </div>
+
+        <div class="sidebar-widget">
+          <h4><i class="fas fa-link" style="margin-right:6px"></i>Permit Quick Links</h4>
+          <div class="sidebar-links">
+            <a href="#"><i class="fas fa-laptop"></i> Fast Track Online Portal</a>
+            <a href="#"><i class="fas fa-circle-question"></i> Do I Need a Permit?</a>
+            <a href="#"><i class="fas fa-border-all"></i> Fence Permit Guide</a>
+            <a href="#"><i class="fas fa-map-location-dot"></i> Find My Parcel / Zoning</a>
+            <a href="#"><i class="fas fa-file-pdf"></i> Permitting &amp; Construction Forms</a>
+            <a href="#"><i class="fas fa-book"></i> Orange County Dev Code</a>
+            <a href="#"><i class="fas fa-calendar-check"></i> Schedule an Inspection</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ 6-STEP PERMIT PROCESS ═══════════════════════════════ -->
+<div class="callout-band">
+  <div class="section-inner" style="max-width:1200px;margin:0 auto">
+    <h2 class="section-title" style="color:#fff;margin-bottom:32px">The 6-Step Permit Journey</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:20px">
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">1</div>
+        <h3>Training &amp; Prep</h3>
+        <p>Review Fast Track guides, video tutorials, and training resources before starting your application.</p>
+      </div>
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">2</div>
+        <h3>Plan Preparation</h3>
+        <p>Prepare and submit plans electronically. One electronically signed/sealed set required. No in-person applications accepted.</p>
+      </div>
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">3</div>
+        <h3>Plan Review</h3>
+        <p>All reviewing agencies review simultaneously via Fast Track. Corrections are uploaded through the portal — not emailed.</p>
+      </div>
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">4</div>
+        <h3>Permit Issuance</h3>
+        <p>Permit issued through Fast Track. Permits expire 6 months after issuance or last passed inspection. One 90-day extension available.</p>
+      </div>
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">5</div>
+        <h3>Inspections</h3>
+        <p>Schedule via Fast Track. Remote inspections available for AC change-outs, water heaters, re-pipes, windows &amp; doors final, and more.</p>
+      </div>
+      <div class="callout-item">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--orange);color:#fff;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">6</div>
+        <h3>Final Closure</h3>
+        <p>Pass final inspection to close the permit. Certificate of Occupancy required before occupancy for commercial projects.</p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:28px;font-size:13px;opacity:.65">All applications at <strong>fasttrack.ocfl.net</strong> &nbsp;·&nbsp; Help line: (407) 836-8160 &nbsp;·&nbsp; Address: 201 S. Rosalind Ave, 1st Floor, Orlando, FL 32802</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ CHATBOT BAND ═══════════════════════════════ -->
+<section class="chatbot-band">
+  <div class="chatbot-inner">
+    <div class="chatbot-text">
+      <div style="font-size:12px;letter-spacing:.8px;text-transform:uppercase;opacity:.8;margin-bottom:8px">RFI #Y26-05 · Woicely, Inc.</div>
+      <h2><i class="fas fa-robot" style="margin-right:10px"></i>Permit &amp; Planning Copilot</h2>
+      <p>Woicely's AI assistant ingests Orange County's zoning codes, permit requirements, and departmental procedures — then guides every resident or contractor through the exact steps they need, in plain language, 24/7.</p>
+      <ul style="margin-top:16px;list-style:none;display:flex;flex-direction:column;gap:8px">
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;opacity:.92"><i class="fas fa-check-circle" style="color:#f5a623;margin-top:2px;flex-shrink:0"></i> RAG architecture — answers grounded in official OC codes &amp; documents</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;opacity:.92"><i class="fas fa-check-circle" style="color:#f5a623;margin-top:2px;flex-shrink:0"></i> Interactive checklists for every permit type — building, zoning, environmental</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;opacity:.92"><i class="fas fa-check-circle" style="color:#f5a623;margin-top:2px;flex-shrink:0"></i> Multilingual support (English, Español, Haitian Creole) · WCAG 2.1 AA</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;opacity:.92"><i class="fas fa-check-circle" style="color:#f5a623;margin-top:2px;flex-shrink:0"></i> Integrates with Fast Track, Accela, EnerGov, 311, and GIS systems</li>
+        <li style="display:flex;align-items:flex-start;gap:8px;font-size:14px;opacity:.92"><i class="fas fa-check-circle" style="color:#f5a623;margin-top:2px;flex-shrink:0"></i> Reduces repetitive inquiries 30–60% · 6–12 week implementation</li>
+      </ul>
+      <div style="margin-top:22px; display:flex; gap:12px; flex-wrap:wrap">
+        <a href="#" class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,.7);font-size:14px;padding:10px 22px">
+          <i class="fas fa-comment-dots"></i> Try the Demo (bottom right)
+        </a>
+        <a href="#" style="color:rgba(255,255,255,.8);font-size:14px;padding:10px 0;display:inline-flex;align-items:center;gap:6px">
+          <i class="fas fa-file-lines"></i> View Full RFI Response
+        </a>
+      </div>
+    </div>
+    <div class="chatbot-demo">
+      <div class="chat-header">
+        <div class="bot-icon"><i class="fas fa-robot"></i></div>
+        <span>OC Permit Copilot</span>
+        <span style="margin-left:auto;font-size:11px;opacity:.7;background:rgba(255,255,255,.2);padding:2px 8px;border-radius:10px">Online</span>
+      </div>
+      <div class="chat-msg">Hi! I'm Orange County's Permit &amp; Planning Copilot. Do you need a permit? Ask me anything.</div>
+      <div class="chat-msg user">Do I need a permit to replace my AC?</div>
+      <div class="chat-msg">Yes — a <strong>mechanical permit</strong> is required for all permanently installed AC/heating equipment. Good news: the final inspection can be done <strong>remotely</strong> via Fast Track. Apply at <strong>fasttrack.ocfl.net</strong> or call (407) 836-5550.</div>
+      <div class="chat-input">
+        <input type="text" placeholder="Ask a permit question…" />
+        <button><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <div class="brand-logo">
+        <div class="footer-seal"><i class="fas fa-star-of-david" style="color:#f5a623"></i></div>
+        <div>
+          <h3>Orange County Government</h3>
+          <p>Florida &nbsp;·&nbsp; Est. 1824</p>
+        </div>
+      </div>
+      <p>Serving over 1.4 million residents with transparent, responsive, and efficient local government services across Central Florida.</p>
+      <div class="social-row">
+        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" title="X"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Governance</h4>
+      <ul>
+        <li><a href="#">County Commission</a></li>
+        <li><a href="#">County Mayor</a></li>
+        <li><a href="#">Open Government</a></li>
+        <li><a href="#">Media Center</a></li>
+        <li><a href="#">Boards &amp; Special Districts</a></li>
+        <li><a href="#">Budget &amp; Finance</a></li>
+        <li><a href="#">Strategic Plan</a></li>
+        <li><a href="#">County History</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#">Animals &amp; Pets</a></li>
+        <li><a href="#">Community &amp; Family</a></li>
+        <li><a href="#">Culture &amp; Parks</a></li>
+        <li><a href="#">Emergency &amp; Safety</a></li>
+        <li><a href="#">Employment</a></li>
+        <li><a href="#">Health Services</a></li>
+        <li><a href="#">Jail &amp; Inmate Services</a></li>
+        <li><a href="#">Medical Examiner</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Development</h4>
+      <ul>
+        <li><a href="#">Permits &amp; Licenses</a></li>
+        <li><a href="#">Planning &amp; Development</a></li>
+        <li><a href="#">Zoning</a></li>
+        <li><a href="#">Neighborhoods &amp; Housing</a></li>
+        <li><a href="#">Economic Development</a></li>
+        <li><a href="#">Convention Center</a></li>
+        <li><a href="#">Vendor Services</a></li>
+        <li><a href="#">Central FL Research Park</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Infrastructure</h4>
+      <ul>
+        <li><a href="#">Traffic &amp; Transportation</a></li>
+        <li><a href="#">Water / Garbage / Recycling</a></li>
+        <li><a href="#">Environment</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">GIS &amp; Maps</a></li>
+        <li><a href="#">Payment Center</a></li>
+        <li><a href="#">311 Help &amp; Info</a></li>
+        <li><a href="#">County Directory</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Orange County Government, Florida. All rights reserved.</span>
+    <span style="display:flex;gap:16px;flex-wrap:wrap">
+      <a href="#">Privacy &amp; Terms</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Title VI</a>
+      <a href="#">Browse Contacts</a>
+      <a href="#">Site Map</a>
+      <a href="#">A-Z Index</a>
+    </span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════ CHATBOT WIDGET ═══════════════════════════════ -->
+<div class="chat-widget">
+  <div class="chat-window" id="chatWindow">
+    <div class="cw-header">
+      <div class="cw-info">
+        <div class="cw-avatar"><i class="fas fa-robot"></i></div>
+        <div>
+          <h4>OC Assistant</h4>
+          <p>Online · Typically replies instantly</p>
+        </div>
+      </div>
+      <button class="cw-close" id="chatClose"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="cw-messages" id="chatMessages">
+      <div class="cw-msg bot">
+        👋 Hi! I'm Orange County's <strong>Permit &amp; Planning Copilot</strong>. I can help you find the right permit, understand zoning rules, and navigate the Fast Track portal. What do you need?
+      </div>
+    </div>
+    <div class="cw-chips">
+      <button class="cw-chip" onclick="sendChip(this)">Do I need a permit?</button>
+      <button class="cw-chip" onclick="sendChip(this)">Fence permit</button>
+      <button class="cw-chip" onclick="sendChip(this)">Replace my AC</button>
+      <button class="cw-chip" onclick="sendChip(this)">Business license</button>
+      <button class="cw-chip" onclick="sendChip(this)">Check permit status</button>
+    </div>
+    <div class="cw-input-row">
+      <input type="text" id="chatInput" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter') sendMessage()" />
+      <button class="cw-mic-btn" id="micBtn" onclick="toggleVoice()" title="Speak to assistant"><i class="fas fa-microphone"></i></button>
+      <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <button class="chat-widget-btn" id="chatToggle" title="Chat with OC Assistant">
+    <i class="fas fa-comment-dots"></i>
+  </button>
+</div>
+
+<!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
+<script>
+  /* ── Carousel ── */
+  const track  = document.getElementById('carouselTrack');
+  const slides = track.querySelectorAll('.carousel-slide');
+  let idx = 0;
+
+  function getVisible() {
+    return window.innerWidth < 640 ? 1 : window.innerWidth < 900 ? 2 : 3;
+  }
+
+  function updateCarousel() {
+    const vis   = getVisible();
+    const gap   = 24;
+    const w     = track.parentElement.offsetWidth;
+    const sw    = (w - gap * (vis - 1)) / vis;
+    slides.forEach(s => { s.style.flex = `0 0 ${sw}px`; });
+    track.style.transform = `translateX(-${idx * (sw + gap)}px)`;
+  }
+
+  document.getElementById('cNext').addEventListener('click', () => {
+    const vis = getVisible();
+    const max = slides.length - vis;
+    idx = idx >= max ? 0 : idx + 1;
+    updateCarousel();
+  });
+  document.getElementById('cPrev').addEventListener('click', () => {
+    const vis = getVisible();
+    const max = slides.length - vis;
+    idx = idx <= 0 ? max : idx - 1;
+    updateCarousel();
+  });
+  window.addEventListener('resize', updateCarousel);
+  updateCarousel();
+
+  /* ── Auto-advance carousel ── */
+  setInterval(() => {
+    const vis = getVisible();
+    idx = idx >= slides.length - vis ? 0 : idx + 1;
+    updateCarousel();
+  }, 5000);
+
+  /* ── Chatbot widget ── */
+  const chatWindow = document.getElementById('chatWindow');
+  const chatToggle = document.getElementById('chatToggle');
+  const chatClose  = document.getElementById('chatClose');
+  const chatInput  = document.getElementById('chatInput');
+  const chatMessages = document.getElementById('chatMessages');
+
+  chatToggle.addEventListener('click', () => {
+    chatWindow.classList.toggle('open');
+    chatToggle.innerHTML = chatWindow.classList.contains('open')
+      ? '<i class="fas fa-xmark"></i>'
+      : '<i class="fas fa-comment-dots"></i>';
+    if (!chatWindow.classList.contains('open')) { speechSynthesis?.cancel(); stopVoice(); }
+  });
+  chatClose.addEventListener('click', () => {
+    chatWindow.classList.remove('open');
+    chatToggle.innerHTML = '<i class="fas fa-comment-dots"></i>';
+    speechSynthesis?.cancel(); stopVoice();
+  });
+
+  const botReplies = {
+    'fence':    '🏠 <strong>Fence permits in Orange County:</strong><br>• <strong>≤6 ft:</strong> Zoning permit — email zoning@ocfl.net<br>• <strong>>6 ft or masonry:</strong> Building permit via Fast Track<br>• Max heights: 8 ft (side/rear), 4 ft (front yard), 4 ft within 50 ft of water<br>• Requires a survey showing fence location.<br><br>📞 Zoning: (407) 836-3111',
+    'ac':       '❄️ <strong>HVAC / AC Replacement:</strong><br>A <strong>mechanical permit</strong> is required for all permanently installed AC or heating equipment. Portable/plug-in units do NOT need a permit.<br><br>✅ Good news: the final inspection can be done <strong>remotely</strong> via Fast Track!<br><br>Apply at fasttrack.ocfl.net · Phone: (407) 836-5550',
+    'water':    '🚿 <strong>Water Heater Replacement:</strong><br>A <strong>plumbing permit</strong> is required. An electrical permit may also be needed depending on the unit type.<br><br>Remote final inspection is available through Fast Track.<br><br>📞 Permitting Services: (407) 836-5550',
+    'roof':     '🏠 <strong>Roofing Permits:</strong><br>Yes — a permit is required for all re-roofs and roof-overs.<br>• Re-roofs require an in-progress inspection + final inspection<br>• Roof-overs require a permit and final inspection only<br><br>Apply at fasttrack.ocfl.net · (407) 836-5550',
+    'pool':     '🏊 <strong>Swimming Pool Permits:</strong><br>A <strong>building permit</strong> is required, plus applicable sub-permits for electrical, plumbing, and gas.<br><br>All applications through Fast Track portal at fasttrack.ocfl.net<br>📞 (407) 836-5550',
+    'shed':     '🏚️ <strong>Shed / Structure Permits:</strong><br>All structures require a permit — even sheds under 120 sq ft still need a building permit (though they may be exempt from building code).<br><br>Apply at fasttrack.ocfl.net · (407) 836-5550',
+    'business': '🏪 <strong>Business Tax Receipt (BTR):</strong><br>Zoning approval is required before the Tax Collector issues a BTR.<br>1. Create a Fast Track account (Zoning/BZA category)<br>2. Submit BTR zoning approval form online<br>3. Pay through Fast Track upon approval<br>4. Contact Business Tax Dept for final steps: (407) 836-5650',
+    'status':   '🔍 <strong>Check Your Permit Status:</strong><br>Log in to <strong>fasttrack.ocfl.net</strong> to track your permit application, inspection status, and routing position in real time.<br><br>Need help? Call (407) 836-8160 (Fast Track Help) or email PermittingServices@ocfl.net',
+    'zoning':   '🗺️ <strong>Zoning Lookup:</strong><br>Use the <strong>Interactive Mapping tool</strong> at ocgis4.ocfl.net/Html5Viewer to find your parcel\'s zoning by address or parcel ID.<br><br>For interpretation and variances, contact:<br>📧 zoning@ocfl.net · 📞 (407) 836-3111<br>Appointments required 24+ hrs in advance.',
+    'need':     '✅ <strong>Do I need a permit?</strong><br><strong>Usually YES for:</strong> new structures, additions, roofing, pools, HVAC, water heaters, electrical panels, irrigation, fences, windows/doors.<br><br><strong>NO permit needed for:</strong> painting, plug-in appliances, floor covering, cabinet replacement (no reconfig), landscaping (no irrigation), satellite dishes.<br><br>Not sure? Ask me about your specific project!',
+    'fasttrack':'💻 <strong>Fast Track Online Portal:</strong><br>All permit applications, inspection scheduling, contractor license searches, and impact fee calculations are done at:<br>🔗 <strong>fasttrack.ocfl.net</strong><br><br>Available 24/7 · Help: (407) 836-8160 · Training videos available on the platform.',
+    'inspection':'👷 <strong>Scheduling Inspections:</strong><br>Schedule through Fast Track with your permit number. Hours: 8am–4pm.<br><br><strong>Remote inspections available for:</strong><br>• AC change-out final · Water heater · Re-pipe<br>• Windows &amp; doors final · Residential underground electrical<br><br>After-hours inspections available for a fee.',
+    'default':  "I can help with Orange County permits &amp; planning! Try asking about:<br>• Fence, AC, water heater, roof, pool, or shed permits<br>• Business Tax Receipts · Zoning lookups<br>• Fast Track portal · Permit status<br><br>Or call <strong>(407) 836-5550</strong> · 201 S. Rosalind Ave, 1st Floor, Orlando."
+  };
+
+  function addMsg(text, type) {
+    const m = document.createElement('div');
+    m.className = `cw-msg ${type}`;
+    m.innerHTML = text;
+    chatMessages.appendChild(m);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function getReply(text) {
+    const t = text.toLowerCase();
+    if (t.includes('fence'))                                                     return botReplies.fence;
+    if (t.includes('ac') || t.includes('hvac') || t.includes('air condition') || t.includes('heat')) return botReplies.ac;
+    if (t.includes('water heater'))                                              return botReplies.water;
+    if (t.includes('roof'))                                                      return botReplies.roof;
+    if (t.includes('pool') || t.includes('swim'))                               return botReplies.pool;
+    if (t.includes('shed') || t.includes('structure') || t.includes('storage')) return botReplies.shed;
+    if (t.includes('business') || t.includes('btr') || t.includes('license') || t.includes('tax receipt')) return botReplies.business;
+    if (t.includes('status') || t.includes('track') || t.includes('check'))    return botReplies.status;
+    if (t.includes('zon'))                                                       return botReplies.zoning;
+    if (t.includes('need') || t.includes('require') || t.includes('do i'))     return botReplies.need;
+    if (t.includes('fast track') || t.includes('portal') || t.includes('online')) return botReplies.fasttrack;
+    if (t.includes('inspect'))                                                   return botReplies.inspection;
+    if (t.includes('permit') || t.includes('apply') || t.includes('application')) return botReplies.need;
+    return botReplies.default;
+  }
+
+  async function sendMessage(voiceText) {
+    const msg = voiceText || chatInput.value.trim();
+    if (!msg) return;
+    addMsg(msg, 'user');
+    if (!voiceText) chatInput.value = '';
+
+    const typing = document.createElement('div');
+    typing.className = 'cw-msg bot typing-indicator';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg }),
+      });
+      const { reply } = await res.json();
+      typing.remove();
+      addMsg(reply, 'bot');
+      speakReply(reply);
+    } catch {
+      typing.remove();
+      addMsg(getReply(msg), 'bot');
+    }
+  }
+
+  function sendChip(el) {
+    sendMessage(el.textContent);
+  }
+
+  // ── VOICE ──────────────────────────────────────────────────────
+  let recognition = null;
+  let voiceActive = false;
+
+  function toggleVoice() {
+    if (voiceActive) { stopVoice(); return; }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { alert('Voice input requires Chrome or Edge.'); return; }
+    recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.onresult = (e) => {
+      stopVoice();
+      sendMessage(e.results[0][0].transcript);
+    };
+    recognition.onerror = recognition.onend = stopVoice;
+    voiceActive = true;
+    document.getElementById('micBtn').classList.add('listening');
+    recognition.start();
+  }
+
+  function stopVoice() {
+    voiceActive = false;
+    const btn = document.getElementById('micBtn');
+    if (btn) btn.classList.remove('listening');
+    try { recognition?.stop(); } catch {}
+  }
+
+  function speakReply(text) {
+    if (!window.speechSynthesis) return;
+    const plain = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    const utt = new SpeechSynthesisUtterance(plain);
+    utt.lang = 'en-US'; utt.rate = 1.0;
+    const voices = speechSynthesis.getVoices();
+    const v = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English'));
+    if (v) utt.voice = v;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utt);
+  }
+</script>
+
+</body>
+</html>
