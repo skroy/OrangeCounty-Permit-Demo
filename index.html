@@ -1403,7 +1403,6 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
         const parts = msg.serverContent?.modelTurn?.parts || [];
         for (const part of parts) {
           if (part.inlineData?.mimeType?.includes('audio')) playPcm(part.inlineData.data);
-          if (part.text) addMsg(part.text, 'bot');
         }
         if (msg.serverContent?.interrupted) nextPlayTime = 0;
       };
