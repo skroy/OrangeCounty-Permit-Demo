@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Permits &amp; Planning — Orange County Government, Florida</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -455,11 +456,30 @@
     .cw-input-row button:hover { background: var(--orange-light); }
     .cw-mic-btn {
       background: none; border: none; color: var(--navy);
-      font-size: 1.1rem; cursor: pointer; padding: 0 6px; flex-shrink: 0;
-      transition: color .2s;
+      font-size: 1.1rem; cursor: pointer; padding: 5px; flex-shrink: 0;
+      transition: color .2s, background .2s; border-radius: 50%;
+      position: relative; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
     }
-    .cw-mic-btn.listening { color: var(--orange); animation: micpulse 1s infinite; }
-    @keyframes micpulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .cw-mic-btn.listening {
+      color: #fff; background: var(--orange);
+      box-shadow: 0 0 0 0 rgba(230,81,0,.6);
+      animation: micwave 1.4s ease-out infinite;
+    }
+    .cw-mic-btn.listening::after {
+      content: ''; position: absolute; inset: -5px; border-radius: 50%;
+      border: 2px solid var(--orange);
+      animation: micring 1.4s ease-out infinite;
+    }
+    @keyframes micwave {
+      0%   { box-shadow: 0 0 0 0 rgba(230,81,0,.6); }
+      70%  { box-shadow: 0 0 0 10px rgba(230,81,0,0); }
+      100% { box-shadow: 0 0 0 0 rgba(230,81,0,0); }
+    }
+    @keyframes micring {
+      0%   { transform: scale(1); opacity: .8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
     .cw-msg.typing-indicator { display: flex; align-items: center; gap: 3px; padding: 8px 12px; }
     .cw-msg.typing-indicator span {
       display: inline-block; width: 7px; height: 7px;
@@ -1413,6 +1433,13 @@ CONTACTS (only when needed): Fast Track portal at fasttrack dot ocfl dot net. Bu
           btn.innerHTML = '<i class="fas fa-microphone"></i>';
           btn.classList.add('listening');
           await startMic(ws);
+          // Prompt the assistant to speak first
+          ws.send(JSON.stringify({
+            clientContent: {
+              turns: [{ role: 'user', parts: [{ text: 'Hello' }] }],
+              turnComplete: true
+            }
+          }));
         }
 
         const parts = msg.serverContent?.modelTurn?.parts || [];
