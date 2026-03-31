@@ -1349,7 +1349,8 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
     try {
-      const { apiKey } = await fetch('/api/config').then(r => r.json());
+      const { apiKey: rawKey } = await fetch('/api/config').then(r => r.json());
+      const apiKey = (rawKey || '').trim();
       if (!apiKey) throw new Error('No API key');
 
       const ws = new WebSocket(
@@ -1360,7 +1361,7 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
       ws.onopen = () => {
         ws.send(JSON.stringify({
           setup: {
-            model: 'models/gemini-2.0-flash-exp',
+            model: 'models/gemini-2.0-flash-live-001',
             generationConfig: {
               responseModalities: ['AUDIO'],
               speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Aoede' } } }
