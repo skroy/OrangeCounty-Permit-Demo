@@ -1370,11 +1370,28 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
         }));
       };
 
+      // Safety timeout — if setupComplete doesn't arrive in 8s, bail out
+      const setupTimeout = setTimeout(() => {
+        if (!voiceActive) {
+          stopVoice();
+          addMsg('Voice connection timed out. Check that your API key has access to Gemini Live, then try again.', 'bot');
+        }
+      }, 8000);
+
       ws.onmessage = async (event) => {
         const raw = event.data instanceof Blob ? await event.data.text() : event.data;
         let msg; try { msg = JSON.parse(raw); } catch { return; }
 
+        // Surface any API errors visibly
+        if (msg.error) {
+          clearTimeout(setupTimeout);
+          stopVoice();
+          addMsg(`Voice error: ${msg.error.message || JSON.stringify(msg.error)}`, 'bot');
+          return;
+        }
+
         if (msg.setupComplete) {
+          clearTimeout(setupTimeout);
           voiceActive = true;
           btn.disabled = false;
           btn.innerHTML = '<i class="fas fa-microphone"></i>';
@@ -1390,8 +1407,18 @@ Zoning 407-836-3111, Planning 407-836-5321. If unsure, direct them to the right 
         if (msg.serverContent?.interrupted) nextPlayTime = 0;
       };
 
-      ws.onerror = () => stopVoice();
-      ws.onclose = () => { if (voiceActive) stopVoice(); };
+      ws.onerror = (e) => { clearTimeout(setupTimeout); stopVoice(); };
+      // Always reset button on close — whether setup completed or not
+      ws.onclose = (e) => {
+        clearTimeout(setupTimeout);
+        if (!voiceActive) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-microphone"></i>';
+          if (e.code !== 1000) addMsg(`Voice disconnected (code ${e.code}). Please try again.`, 'bot');
+        } else {
+          stopVoice();
+        }
+      };
 
     } catch {
       btn.disabled = false;
