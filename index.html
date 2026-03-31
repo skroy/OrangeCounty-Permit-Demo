@@ -430,6 +430,11 @@
       max-width: 85%; font-size: 13.5px; line-height: 1.5; border-radius: 12px; padding: 10px 14px;
     }
     .cw-msg.bot { background: var(--gray-bg); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+    .cw-msg.bot p { margin: 0 0 6px; }
+    .cw-msg.bot p:last-child { margin-bottom: 0; }
+    .cw-msg.bot ul, .cw-msg.bot ol { padding-left: 18px; margin: 4px 0 6px; }
+    .cw-msg.bot li { margin-bottom: 3px; }
+    .cw-msg.bot strong { font-weight: 700; }
     .cw-msg.user { background: var(--navy); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
     .cw-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 12px; }
     .cw-chip {
@@ -1292,7 +1297,7 @@
   function addMsg(text, type) {
     const m = document.createElement('div');
     m.className = `cw-msg ${type}`;
-    m.innerHTML = text;
+    m.innerHTML = type === 'bot' ? marked.parse(text) : text;
     chatMessages.appendChild(m);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }
@@ -1436,7 +1441,7 @@ CONTACTS (only when needed): Fast Track portal at fasttrack dot ocfl dot net. Bu
           // Prompt the assistant to speak first
           ws.send(JSON.stringify({
             clientContent: {
-              turns: [{ role: 'user', parts: [{ text: 'Hello' }] }],
+              turns: [{ role: 'user', parts: [{ text: 'Greet me with a short, friendly welcome — one sentence, no more. Do not mention "unincorporated".' }] }],
               turnComplete: true
             }
           }));
