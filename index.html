@@ -1313,13 +1313,16 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: msg }),
       });
+      if (!res.ok) throw new Error('API error');
       const { reply } = await res.json();
       typing.remove();
       addMsg(reply, 'bot');
       speakReply(reply);
     } catch {
       typing.remove();
-      addMsg(getReply(msg), 'bot');
+      const fallback = getReply(msg);
+      addMsg(fallback, 'bot');
+      speakReply(fallback);
     }
   }
 
@@ -1330,29 +1333,54 @@
   // ── VOICE ──────────────────────────────────────────────────────
   let recognition = null;
   let voiceActive = false;
+  let gotResult = false;
+
+  function startRecognition() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SR();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    recognition.onresult = (e) => {
+      gotResult = true;
+      const transcript = e.results[0][0].transcript;
+      stopVoice();
+      sendMessage(transcript);
+    };
+
+    recognition.onerror = (e) => {
+      if (e.error === 'not-allowed') { stopVoice(); alert('Microphone access was denied.'); }
+      // other errors (no-speech, aborted): onend will handle restart
+    };
+
+    // If recognition ends without a result (e.g. permission dialog timing),
+    // restart automatically so the user can speak after granting access.
+    recognition.onend = () => {
+      if (voiceActive && !gotResult) {
+        try { recognition.start(); } catch { stopVoice(); }
+      } else if (!voiceActive) {
+        // intentional stop — nothing to do
+      }
+    };
+
+    gotResult = false;
+    recognition.start();
+  }
 
   function toggleVoice() {
     if (voiceActive) { stopVoice(); return; }
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) { alert('Voice input requires Chrome or Edge.'); return; }
-    recognition = new SR();
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.onresult = (e) => {
-      stopVoice();
-      sendMessage(e.results[0][0].transcript);
-    };
-    recognition.onerror = recognition.onend = stopVoice;
     voiceActive = true;
     document.getElementById('micBtn').classList.add('listening');
-    recognition.start();
+    startRecognition();
   }
 
   function stopVoice() {
     voiceActive = false;
     const btn = document.getElementById('micBtn');
     if (btn) btn.classList.remove('listening');
-    try { recognition?.stop(); } catch {}
+    try { recognition?.abort(); } catch {}
   }
 
   function speakReply(text) {
